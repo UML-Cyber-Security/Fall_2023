@@ -8,3 +8,4 @@
 + Change the discord from Hackers to Cyber Security Club
 + Redo directions for the club. There is a left turn that is not the clearest. Make a video?
 + Have people at the entrace to the building for the first meeting, so students do not get lost.
++ Keep engage page updated with meeting information, for people who do not use discord

@@ -1,0 +1,3 @@
+The RTLO character stands for Right-To-Left Override. It is a non-printing Unicode character, represented by the Unicode character code U+202E1. This character is used to write languages that are read in the right-to-left manner, such as Hebrew, Arabic, Aramaic, and Urdu2. It takes the input and literally just flips the text the other way round2.
+
+The RTLO character can be used to reverse the display of text that follows it. For example, a Windows screensaver executable named March 25 \u202Excod.scr will display as March 25 rcs.docx. Adversaries may abuse the RTLO character as a means of tricking a user into executing what they think is a benign file type.
