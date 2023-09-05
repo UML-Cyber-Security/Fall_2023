@@ -1,28 +1,21 @@
 # Speaker Notes Meeting 1
 
-## Prereqs (before meeting)
-+ Setup mail server to spoof email on the umlcyber.club domain.
+## Member Prereqs (stuff they should have for meeting to be smooth)
++ Web Version does not support VBA macros, does not support .docm files.
++ Download Word for free as a student: <https://www.microsoft.com/en-us/education/products/office>
+
+## Speaker Prereqs (before meeting)
 + Have several windows VMs set up, in case one breaks. Can use Proxmox for this.
 + Do I need to set up windows VMs on the Cyber Range machines?
 
-### Mail Server Setup
-Amazon SES
-+ Verify the domain
-+ Setup verified sender addresses
-+ Get SMTP credentials
-#### From scratch (not likely, who wants to pay for cloud hosting & get ports unblocked)
-+ Postfix
-+ Dovecot (to access over Outlook)
-+ Roundcube (webmail interface)
+## DMARC explanation
+<https://www.learndmarc.com/>
 
 ### .scr/.exe files
 mingw-w64 that provides a cross-compiler for Windows.
 
 ### Website setup?
 + Setup website as a payload they can download & run if they want to
-
-## Amazon SES Setup
-1. Add the CNAME things in Cloudflare to verify your domain ownersip
 
 ## Windows Coding Setup
 I used a proxmox VM for access to a windows machine.

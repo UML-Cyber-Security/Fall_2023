@@ -58,12 +58,12 @@ int _tmain(int argc, _TCHAR* argv[]) {
              _tprintf(_T("Downloaded program\n"));
             // Start the program
             HINSTANCE hInstance = ShellExecuteW(
-                NULL,     // Parent window handle
-                L"open",   // Operation to perform
-                pathToProgramW.c_str(), // Path to the program
-                NULL,     // Parameters
-                NULL,     // Default directory
-                SW_HIDE   // Hide command
+                NULL,
+                L"open",
+                pathToProgramW.c_str(),
+                NULL,
+                NULL,
+                SW_HIDE
             );
 
             // Check for errors
