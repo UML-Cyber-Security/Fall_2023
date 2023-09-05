@@ -32,7 +32,17 @@ Location
 + Chisom
 + Chris
 
+## Font and sizes
 
+TeX Gyre Pagella
+
+Headings: 80-100 points or even larger 
+
+Sub-Headings: 48-60 points
+
+Body Text: 24-36 points for body text
+
+Captions: 18-24 points
 
 ## Pitch Information
 + Meetings on Wednesdays at 6:30pm-8:30pm
