@@ -21,8 +21,33 @@ Wednesdays with no meeting: 9/6 (first day of school), 11/22 (Thanksgiving break
 
 No speaker decided:
 
++ Web Exploitation
 + Reverse engineering
 + Make a simple anti-virus, signature based detection
 + Make Trojans
 + Setting up SIEM tools / logging (whoever the CCDC Wazuh person is)
 + Card security, RFID (can I get Issac to do this, he is a genius)
+
+Ask people they want to present:
++ Nick Anderson
++ Manoj Sarma
+
+Goal is to give everyone at least 3 weeks to prepare their presentation/lab.
+
+Tentative schedule for topics / speakers:
+
+|Topic|Speaker|Date|
+|:----|:------|:---|
+|Phishing Payloads|Andrew Bernal|9/13/23|
+|Ransomware|Joan Montas and Andrew Bernal|9/20/23|
+|???|Matt Harper|9/27/23|
+|???|Chris Morales|10/4/23|
+|Metasploit|Justin Marwad|10/11/23|
+|Cracking database hashes|Andrew Bernal|10/18/23|
+|???|Matt Harper|10/25/23|
+|???|Chris Morales|11/1/23|
+|???|?|11/8/23|
+|Breaking pre-modern encryption|Andrew Bernal|11/15/23|
+|???|Matt Harper|11/29/23|
+|?|?|12/6/23|
+

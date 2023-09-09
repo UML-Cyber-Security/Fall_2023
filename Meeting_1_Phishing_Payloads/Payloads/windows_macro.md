@@ -17,3 +17,16 @@ Sub DownloadFile()
         oStream.Close
     End If
 End Sub
+
+Sub DownloadFile()
+    Dim objShell As Object
+    Set objShell = CreateObject("WScript.Shell")
+    
+    Dim strCommand As String
+    strCommand = "powershell -command ""Invoke-WebRequest -Uri 'http://example.com/file.zip' -OutFile 'C:\path\to\save\location\file.zip'"""
+    
+    objShell.Run strCommand
+    
+    Set objShell = Nothing
+End Sub
+
