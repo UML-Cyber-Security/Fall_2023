@@ -22,6 +22,7 @@ Wednesdays with no meeting: 9/6 (first day of school), 11/22 (Thanksgiving break
 No speaker decided:
 
 + Web Exploitation
++ Wifi security
 + Reverse engineering
 + Make a simple anti-virus, signature based detection
 + Make Trojans
@@ -41,7 +42,7 @@ Tentative schedule for topics / speakers:
 |Phishing Payloads|Andrew Bernal|9/13/23|
 |Ransomware|Joan Montas and Andrew Bernal|9/20/23|
 |???|Matt Harper|9/27/23|
-|???|Chris Morales|10/4/23|
+|???||10/4/23|
 |Metasploit|Justin Marwad|10/11/23|
 |Cracking database hashes|Andrew Bernal|10/18/23|
 |???|Matt Harper|10/25/23|

