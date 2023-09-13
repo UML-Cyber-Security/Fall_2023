@@ -4,6 +4,7 @@ I run the program with process injection so they do not appear to be linked in p
 
 To compile the icon:
 > windres icon.rc -o icon.o
+
 To compile the program:
 > g++ watcher_1.cpp icon.o -o watcher_1.exe -static -lpsapi -mwindows
 
