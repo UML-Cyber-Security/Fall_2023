@@ -3,12 +3,14 @@ Goals:
 We have 4-5 vulnerable machines set up
 
 ## Table of Contents
+- [Setting up Vulnerable VM](#Setting-up-Vulnerable-VM]
 - [Connecting to a database](#connecting-to-a-database)
 - [Scanning](#scanning)
 - [Exploitation](#exploitation)
     - [Choosing an exploit](#choosing-an-exploit)
     - [Searching](#searching)
-    - [Using a search result](#using-a-search-result)
+    - [Online Vuln Database scanning](#Online-Vuln-Database-scanning)
+    - [Using a payload](#using-a-payload)
     - [Types of payloads](#types-of-payloads)
 - [Post-Exploitation](#post-exploitation)
     - [What is Meterpreter?](#what-is-meterpreter)
@@ -17,8 +19,21 @@ We have 4-5 vulnerable machines set up
 ## Metasploit
 Metasploit is a widely used penetration testing framework that helps find, exploit, and validate vulnerabilities in systems. To open Metasploit, type `msfconsole` in the terminal.
 
+### Setting up Vulnerable VM
+We've installed metasploit**able** on every computer in the lab
+This is an intentionally insecure machine, for testing.
+
+Navigate to Oracale VM VirtualBox Manager on the lab computers.
+Run CyberSec-Club-Metasploitable.
+
+Login:
+User: msfadmin
+pass: msfadmin
+
+
 ### Connecting to a database
 Metasploit can connect to a PostgreSQL database. To set up and initialize the database, run `msfdb init` in bash. After launching Metasploit with `msfconsole`, you can verify the database connection with the `db_status` command.
+ - These commands are run on the Attacking computer(host), which is separate & not inside the metasploitable vm.
 
 See [Metasploit Database](#metasploit-database) for more details.
 
@@ -28,11 +43,21 @@ The goal of scanning is to learn more about the machine, so you can plan your at
 
 `db_nmap` will do an nmap scan and save the results in your metasploit database.
 
+With the nmap or db_nmap scan you will be presented with a list of ports and the services running on them.
+One valid approach is to search up the services and their versions on a vulnerability databases, which often provide more information or search for the vulnerabilties within metasploit itself(discussed in #### Searching).
+1st Method ##### Online Vuln Database scanning
+2nd Method ##### Searching
+
 ### Exploitation
 The goal of exploitation is to use a vulnerability to access the machine. 
 
 #### Choosing an exploit
-##### Searching
+Note: There are multiple ways to search for exploits & vulnerabilites, you can use the  [Online Vuln Database scanning](#Online-Vuln-Database-scanning) method or  - [Searching](#searching) method
+
+##### Searching 
+With the db_nmap or nmap scan may see a list of ports and their respective services.
+Along with this you will see vulnerabilities when searaching withing metasploit
+
 Type `vulns` to view the vulnerabilities your scan found.
 
 Now use the `search` command to figure out which metasploit modules can exploit what you found. 
@@ -41,6 +66,7 @@ To search for exploits on windows, you could type `search -t exploit -p windows`
 
 `-t` is type. It can distinguish between metasploit's different offerinsgs, such as: `exploit, payload, post, auxiliary, encoder, nop`
 
+
 Some other useful parameters:
 + `--cve` filter by CVE identifier
 + `-o` order the results. Can do it by `rank`, `name`, 
@@ -48,12 +74,44 @@ Some other useful parameters:
 
 For example, to search by cve, type `search --cve CVE-2021-12345`
 
-##### Using a search result
-From the search results, to use the exploit labeled `0`, type `use 0`
+you can use the  [Online Vuln Database scanning](#Online-Vuln-Database-scanning) method or  - [Searching](#searching) method
 
-Then type `show options` to view what parameters need to be set.
+##### Online Vuln Database scanning
+Once you have a list of services running on you target machine, pick a service to test its security.
+With the name of the service, navigate to https://www.rapid7.com/db and type in the name of the service. Be sure to also select Module, to actually get the exploit.
 
-To set a parameter, you can type `set <Parameter Name> <value>` and `unset <Parameter Name>`
+There will be a **module path** file similar to "exploit/unix/ftp/vsftpd_234_backdoor". It will awlways start with exploit.
+
+
+##### Using a Payload
+After you have selected the a payload and have its module path.
+1. We need to access the module of the exploit to configure its options, before we send our payload.
+```sh
+msfconsole > use exploit/<pathtomodule>
+```
+You are now within the module of your selected exploit
+
+There will be some options similar to...
+RHOST : "Needs to be the Target IP" "Will be the ip of our Metasploit**able** vm
+RPORT : "Needs to the port of the vulnerable service on the target machine
+
+2. Often RHOST will be blank and need to be set by you.
+```sh
+set RHOST < Target ip>
+```
+
+3. Run show options cmd & ensure the needed inputs are filled out.
+```sh
+show options
+```
+- Note: you should still be inside the module of the exploit.
+
+3. NOW run the exploit command, once the module details are filled out.
+```sh
+ exploit
+```
+If no errors appear you have sent a payload/exploit to the target computer
+
 
 #### Types of payloads
 The exploit will get you onto the system. But what do you do once you get in? Here are some popular payloads
