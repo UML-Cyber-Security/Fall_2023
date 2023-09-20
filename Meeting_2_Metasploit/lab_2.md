@@ -28,6 +28,68 @@ The goal of scanning is to learn more about the machine, so you can plan your at
 
 `db_nmap` will do an nmap scan and save the results in your metasploit database.
 
+These are some useful nmap commands
+
+1. **-sP or -sn (Ping Scan)**
+   - Used to discover live hosts without performing a port scan.
+   - `nmap -sn 192.168.1.0/24`
+
+2. **-sT (TCP Connect Scan)**
+   - The most basic form of TCP scanning involving the full TCP handshake.
+   - `nmap -sT 192.168.1.10`
+
+3. **-sS (SYN Scan or Half-Open Scan)**
+   - Stealthier than a full connect scan because it doesn't complete the TCP handshake.
+   - `nmap -sS 192.168.1.10`
+
+4. **-sU (UDP Scan)**
+   - Used to discover open UDP ports.
+   - `nmap -sU 192.168.1.10`
+
+5. **-sV (Version Detection)**
+   - Probes open ports to determine service/version info.
+   - `nmap -sV 192.168.1.10`
+
+6. **-O (OS Detection)**
+   - Tries to determine the operating system of the target.
+   - `nmap -O 192.168.1.10`
+
+7. **-F (Fast Mode)**
+   - Scans fewer ports compared to a full scan. Targets the most common 100 ports.
+   - `nmap -F 192.168.1.10`
+
+8. **-p (Specify Port Range)**
+   - Define a specific range or list of ports to scan.
+   - `nmap -p 20-30,80,443 192.168.1.10`
+
+9. **-Pn (No Ping)**
+   - Skips the host discovery phase and assumes the host is online.
+   - `nmap -Pn 192.168.1.10`
+
+10. **-T[0-5] (Timing Templates)**
+   - Adjusts scan speed. Ranges from T0 (paranoid, slowest) to T5 (insane, fastest).
+   - `nmap -T4 192.168.1.10`
+
+11. **-A (Aggressive Scan)**
+   - Enables OS detection, version detection, script scanning, and traceroute in one command.
+   - `nmap -A 192.168.1.10`
+
+12. **-v and -vv (Verbosity Levels)**
+   - Increases the verbosity of the scan output.
+   - `nmap -vv 192.168.1.10`
+
+13. **--script (Script Scan)**
+   - Utilizes the Nmap Scripting Engine (NSE) to run specific scripts against targets.
+   - `nmap --script http-title 192.168.1.10`
+
+14. **--exclude and --excludemask**
+   - Used to exclude hosts or networks from scanning.
+   - `nmap 192.168.1.0/24 --exclude 192.168.1.5`
+
+15. **-iL (Input from List)**
+   - Scan hosts listed in a file.
+   - `nmap -iL hosts.txt`
+
 ### Exploitation
 The goal of exploitation is to use a vulnerability to access the machine. 
 
@@ -93,20 +155,43 @@ Post-exploitation's goals are pretty open ended. You can try to maintain persist
 This document has a lot of ideas: <http://www.pentest-standard.org/index.php/Post_Exploitation#File.2FPrinter_Shares>
 
 #### What is Meterpreter
+Meterpreter is like a shell, but it is harder to detect. as it runs entirely in memory and does not write to the disk. On Windows, this is accomplished via DLL injection on Windows, and on Linux it operates with ELF binaries and can employ methods such as injecting code into the memory spaces of existing processes.
+
++ `sysinfo`: This command retrieves and displays information about the remote system, such as its OS, architecture, and hostname.
+
++ `getuid`: It displays the user ID under which the Meterpreter server is running on the remote system.
+
++ `upload` and `download`: These commands allow you to upload files to the compromised system or download files from it.
+    Example: upload /local/path/file.txt C:\\remote\\path\\file.txt
+
++ `shell`: This gives you a command shell on the remote system, allowing you to execute native commands.
+
++ `screenshot`: Captures a screenshot of the remote system's current desktop.
+
++ `keyscan_start` and `keyscan_dump`: These commands are used to start capturing keystrokes on the remote system (keyscan_start) and then retrieve the captured data (keyscan_dump).
+
++ `migrate`: Allows the Meterpreter session to migrate to another process. This is useful to ensure the session remains alive or to elevate privileges by migrating to a higher privilege process.
+
++ `ps`: Lists running processes on the remote system.
+
++ `kill`: Terminates a process on the remote system using its process ID.
+
++ `record_mic`: Records audio from the remote system's microphone.
+
++ `webcam_list` & `webcam_snap`: Lists available webcams and captures a photo from the specified webcam, respectively.
+
++ `hashdump`: Dumps the hashes from the compromised system, useful for offline password cracking.
 
 ## Further Reading
-
 - [Msf Venom](#msf-venom)
   - [Encoders](#encoders)
 - [Auxiliary Metasploit Tools](#auxiliary-metasploit-tools)
   - [Fuzzers](#fuzzers)
   - [Sniffers](#sniffers)
-  - [Fun Meterpreter Things](#fun-meterpreter-things)
-    - [Screenshots](#screenshots)
-    - [Keyloggers](#keyloggers)
 - [Metasploit Database](#metasploit-database)
 - [Nmap Alternatives](#nmap-alternatives)
 - [Metasploit Alternatives](#metasploit-alternatives)
+- [Nmap Man Page](https://linux.die.net/man/1/nmap)
 
 ### Msf Venom
 Use `-l` to list the payloads
@@ -174,15 +259,54 @@ See: `msfvenom --help-formats`
 ### Auxiliary Metasploit Tools
 
 #### Fuzzers
+Fuzzers are tools that provide randomized data to various inputs of a program. The goal is to discover new, unanticipated vulnerabilities by monitoring for unexpected behaviors like crashes or memory leaks.
+
+- **HTTP Fuzzer**: A versatile tool that aids in identifying vulnerabilities in web applications by sending a barrage of randomized HTTP requests.
+  
+- **SMB Fuzzer**: Targets the Server Message Block (SMB) protocol to find potential overflows and other vulnerabilities within SMB services.
+  
+- **FTP Fuzzer**: Utilized for probing FTP (File Transfer Protocol) services for potential weaknesses by sending a sequence of randomized FTP commands.
+
+- **DNP3 Fuzzer**: Focuses on the Distributed Network Protocol 3.0 (DNP3), commonly used in industrial control systems.
+
+- **DNS Fuzzer**: Employs randomized domain queries and operations to unearth vulnerabilities in DNS servers.
 
 #### Sniffers
+Sniffers are tools that capture and analyze network traffic. They can be used to uncover unencrypted sensitive information, study network patterns, or even assist in advanced attacks like man-in-the-middle.
 
-#### Fun Meterpreter Things
-##### Screenshots
-##### Keyloggers
-<https://www.yeahhub.com/use-keylogger-in-metasploit-framework/>
+- **HTTP Traffic Sniffer**: Captures and analyzes unencrypted HTTP traffic to discern patterns, credentials, or other sensitive data.
 
-<https://www.hacking-tutorial.com/hacking-tutorial/5-step-using-metasploit-meterpreter-keylogger-keylogging/>
+- **VoIP Sniffer**: Especially effective in capturing Voice over IP (VoIP) traffic, potentially extracting call details and even audio data.
+
+- **Password Sniffer**: Listens to traffic and attempts to pull plaintext passwords from various protocols, including HTTP, SMTP, and FTP.
+
+- **LLMNR/NBNS Spoofer**: Monitors for LLMNR (Link-Local Multicast Name Resolution) and NBNS (NetBIOS Name Service) requests on the network, potentially hijacking them for Man-in-the-Middle attacks.
+
+#### Scanners
+
+- **Port Scanner**: Identifies open ports on a target system, helping to determine services and potential entry points.
+  
+- **Service Scanner**: Detects and identifies the specific versions of services running on open ports. Helpful in identifying potentially vulnerable services.
+
+- **OS Detection**: Utilizes a variety of techniques to ascertain the operating system of a target device.
+
+- **SSL Scanner**: Designed to identify SSL/TLS versions and vulnerabilities.
+
+#### Recon
+
+- **Subdomain Finder**: Discovers potential subdomains of a given domain, which can reveal hidden or less-known entry points.
+
+- **Whois Lookup**: Gathers domain registration information, potentially providing intel on the target's administrators, registration dates, and more.
+
+- **Network Discovery**: Maps out devices and services on a given network segment, providing a clear picture of the network topology.
+
+#### Dos
+
+- **TCP DoS**: Executes a Denial-of-Service attack by overwhelming the target with TCP requests.
+
+- **UDP Flood**: Creates a massive amount of UDP traffic directed at a target, often causing service disruption.
+
+- **HTTP Slowloris**: Engages a target by opening and maintaining many simultaneous HTTP connections, exhausting the target's resources.
 
 ### Metasploit database
 Metasploit uses a PostgreSQL database by default. You can run it with `msfdb init`. You can confirm you are connected to the database by running `db_status` inside metrepreter.
