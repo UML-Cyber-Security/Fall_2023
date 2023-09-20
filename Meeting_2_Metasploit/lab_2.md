@@ -6,12 +6,12 @@ We have 4-5 vulnerable machines set up
 - [Connecting to a database](#connecting-to-a-database)
 - [Scanning](#scanning)
 - [Exploitation](#exploitation)
-        - [Choosing an exploit](#choosing-an-exploit)
-        - [Searching](#searching)
-        - [Using a search result](#using-a-search-result)
-        - [Types of payloads](#types-of-payloads)
+    - [Choosing an exploit](#choosing-an-exploit)
+    - [Searching](#searching)
+    - [Using a search result](#using-a-search-result)
+    - [Types of payloads](#types-of-payloads)
 - [Post-Exploitation](#post-exploitation)
-        - [What is Meterpreter?](#what-is-meterpreter)
+    - [What is Meterpreter?](#what-is-meterpreter)
 - [Further Reading](#further-reading)
 
 ## Metasploit
