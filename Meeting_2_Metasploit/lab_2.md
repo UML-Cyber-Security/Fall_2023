@@ -3,7 +3,7 @@ Goals:
 We have 4-5 vulnerable machines set up
 
 ## Table of Contents
-- [Setting up Vulnerable VM](#Setting-up-Vulnerable-VM]
+- [Setting up Vulnerable VM](#Setting-up-Vulnerable-VM)
 - [Connecting to a database](#connecting-to-a-database)
 - [Scanning](#scanning)
 - [Exploitation](#exploitation)
