@@ -115,8 +115,8 @@ def decrypt_blockwise(c, sk):
 
 # encrypt and decrypt the given message
 mes = ""
-sec = encrypt_blockwise(mes, publicKey)
-dec =  decrypt_blockwise(sec, privateKey)
+sec = encrypt(mes, publicKey)
+dec =  decrypt(sec, privateKey)
 print(f"The actual message = {mes}")
 print(f"The secret = {sec}")
 print(f"The decrypted = {dec}")
