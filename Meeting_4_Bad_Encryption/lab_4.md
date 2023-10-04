@@ -62,3 +62,5 @@ The ciphertext is too short for an effective bigram analysis. Instead, you can e
 
 ## 5: RSA
 [Encrypted file](phase5.txt)
+
+p = 41, q = 23, n = 943, phi = 880, e = 733, d = 437

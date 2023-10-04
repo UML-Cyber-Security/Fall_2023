@@ -59,7 +59,7 @@ q = 0
 n = 0
 while n < 256:
     # choose any strength of bits 2**10 for sanity check
-    p = getAPrimeLesserThan(2**10)
+    p = getAPrimeLesserThan(2**9)
     q = getAPrimeLesserThan(p)
     n = p * q
 
@@ -115,8 +115,8 @@ def decrypt_blockwise(c, sk):
 
 # encrypt and decrypt the given message
 mes = ""
-sec = encrypt_blockwise(mes, publicKey)
-dec =  decrypt_blockwise(sec, privateKey)
+sec = encrypt(mes, publicKey)
+dec =  decrypt(sec, privateKey)
 print(f"The actual message = {mes}")
 print(f"The secret = {sec}")
 print(f"The decrypted = {dec}")
