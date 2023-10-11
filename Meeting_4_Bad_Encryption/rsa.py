@@ -5,38 +5,9 @@
 import random
 import math
 
-def phiFunction(p, q):
-    # find phi as defined in the RSA protocol
-    return (p - 1) * (q - 1)
-
-def isPrime(n):
-    # naive prime number
-    for i in range(2,n):
-        if (n%i) == 0:
-            return False
-    return True
-
-def getAPrimeLesserThan(i):
-    # returns a prime number lesser than the given value
-    p = random.randint(2, i - 1)
-    while not isPrime(p):
-        p = random.randint(2, i - 1)
-    return p
-
 def maxBit(i):
     # returns maximum possible bits the given integer value can be defined as
     return math.floor(math.log2(i)) + 1
-
-def encrypt(m, pk):
-    # encrypt one character at a time, and convert the entire string into a
-    # numerical value
-    e, n = pk
-    x = 0
-    bits = maxBit(n)
-    for i in m:
-        c = (ord(i) ** e) % n
-        x = (x << bits) + c
-    return x
 
 def decrypt(m, pk):
     # gather each character and decrypt. Turn it back into a string
@@ -54,71 +25,19 @@ def decrypt(m, pk):
 # main choose two random prime number.
 # Ensure that both prime number added is greater than 256
 # since n should be greater than the value that is being encrypted
-p = 0
-q = 0
-n = 0
-while n < 256:
-    # choose any strength of bits 2**10 for sanity check
-    p = getAPrimeLesserThan(2**9)
-    q = getAPrimeLesserThan(p)
-    n = p * q
 
-phi = phiFunction(p, q)
-
-e = None
-while True:
-    # find a number e that satisfies the equation defined
-    # in the rsa protocol
-    e = random.randint(2, phi - 1)
-    if math.gcd(e, phi) == 1:
-        break
-
-# define d as define in the rsa protocol
-d = pow(e, -1, phi)
-
+p = 41
+q = 23
+n = 943
+phi = 880
+e = 733
+d = 437
 # create public and private keys
-publicKey = (e, n)
 privateKey = (d, n)
 
-# show case your parameters
-print(f"p = {p}, q = {q}, n = {n}, phi = {phi}, e = {e}, d = {d}")
-
-
-def encrypt_blockwise(m, pk):
-    e, n = pk
-    input_block_size = 240  # You can adjust based on n's size.
-    m_bytes = m.encode('utf-8')
-    
-    # Chunk the message
-    blocks = [m_bytes[i:i + input_block_size] for i in range(0, len(m_bytes), input_block_size)]
-    
-    encrypted_blocks = []
-    for block in blocks:
-        num_representation = int.from_bytes(block, byteorder='big')
-        encrypted_block = pow(num_representation, e, n)
-        encrypted_blocks.append(encrypted_block.to_bytes((n.bit_length() + 7) // 8, byteorder='big'))
-        
-    return b''.join(encrypted_blocks)
-
-def decrypt_blockwise(c, sk):
-    d, n = sk
-    encrypted_block_size = (n.bit_length() + 7) // 8
-    blocks = [c[i:i + encrypted_block_size] for i in range(0, len(c), encrypted_block_size)]
-    
-    decrypted_blocks = []
-    for block in blocks:
-        num_representation = int.from_bytes(block, byteorder='big')
-        decrypted_block = pow(num_representation, d, n)
-        decrypted_blocks.append(decrypted_block.to_bytes((decrypted_block.bit_length() + 7) // 8, byteorder='big'))
-    
-    return b''.join(decrypted_blocks).decode('utf-8')
-
 # encrypt and decrypt the given message
-mes = ""
-sec = encrypt(mes, publicKey)
-dec =  decrypt(sec, privateKey)
-print(f"The actual message = {mes}")
-print(f"The secret = {sec}")
+mes = 12929555360190247478291084838657421305979219673360892885128459995085982636556987352563873865551615156259137429236050504295514401780506717610793280227048681232031497027714724357989325822668335932211514686462855278839152087521494469599772137068953370366950548947872665086696388108193454478774001622818178651869591462492968612098758751145157778578852838401916177042848040849251236913186311184003822815466693599626105718375687355508876816144169400669337076591954036759213654184080178616171616747472611250024024500583661994807302333619217237591407199606608290522422358904988800666759078479631200166921449239131099533215088178142845220131406977506202917891661416965220245112813710261591967730193185466894248687904229604182564378618819983610002290343862139940046780925649265175382954786985396043026775831179567547758406140774300270875827735469262760622657080919485634257821385148349845279448866434061943933194040197903756058639280940361402980301222224984070657544947925443573254753119750887540359975556827634774639215768618733631364731239773546740631649832609617483465263764792709786351576746117042813857188810286224167143056086967235777351635570981646213704035667230455761883892179400728010839779801873797217005364664301046324484766793216228778265301573022511692196379735093222112
+dec =  decrypt(mes, privateKey)
 print(f"The decrypted = {dec}")
 
 # el fin

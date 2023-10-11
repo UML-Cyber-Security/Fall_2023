@@ -88,10 +88,12 @@ def decrypt(message, key):
     return ''.join(result)
 
 if __name__ == "__main__":
-    key = ""
-    message = ""
-    encrypted_msg = encrypt(message, key)
-    decrypted_msg = decrypt(encrypted_msg, key)
-    print(f"Message: {message}")
-    print(f"Encrypted: {encrypted_msg}")
-    print(f"Decrypted: {decrypted_msg}")
+    alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
+    for i in alphabet:
+        for j in alphabet:
+            if (i != j):
+                key = i + j
+                message = "IEHIRQOMHUWHAWCDVBALDHPHMHEKTYSOMOKGUFOBXGQUIFTYEDLRCXFWRXHUITTHGCSBONIKUFEKRXFVFPRWDMPINWCHOAKGYNFHRFDBMWKFBCFQHPHKBEFPBCDMWFIZBQFDMY"
+                decrypted_msg = decrypt(message, key)
+                if "QUALITY" in decrypted_msg:
+                    print(f"Key: {key}, Decrypted: {decrypted_msg}")
