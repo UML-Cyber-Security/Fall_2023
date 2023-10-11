@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 void vulnerable_function() {
-    char buffer[128];
+    char buffer[1];
     printf("Enter some text: ");
     scanf("%s", buffer);
     printf("You entered: %s\n", buffer);

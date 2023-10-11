@@ -6,7 +6,7 @@ char global_flag = 0;
 
 // Vulnerable function
 void greeting(char *name) {
-    char buffer[128];
+    char buffer[1];
     strncpy(buffer, name, sizeof(buffer) - 1);
     buffer[sizeof(buffer) - 1] = '\0';
     printf(buffer); // Format string vulnerability
