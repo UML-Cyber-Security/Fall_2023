@@ -8,7 +8,7 @@ int main(int argc, char* argv[], char* envp[]) {
     char strbuff[10];
 
     printf("Enter a 10 char string: ");
-    scanf_s("%s", &strbuff, 10);
+    scanf("%s", strbuff);
     printf("You entered: %s\n", strbuff);
     printf("Copying over\n");
     strcpy(strbuff2, strbuff);
