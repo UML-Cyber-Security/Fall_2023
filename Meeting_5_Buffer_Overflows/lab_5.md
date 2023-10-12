@@ -1,14 +1,16 @@
 # Meeting 5: Buffer Overflows
 
 ## Table of Contents
-  - [phase1.c](#phase1c)
+- [Meeting 5: Buffer Overflows](#meeting-5-buffer-overflows)
+  - [Table of Contents](#table-of-contents)
+  - [Exploring Buffer Overflows with phase0.c](#exploring-buffer-overflows-with-phase0c)
+    - [Steps:](#steps)
+  - [Exploring Buffer Overflows with phase1.c](#exploring-buffer-overflows-with-phase1c)
+    - [Steps:](#steps-1)
   - [phase2.c](#phase2c)
+    - [Steps:](#steps-2)
   - [phase3.c](#phase3c)
-    - [Step 1: Identify the Vulnerability](#step-1-identify-the-vulnerability)
-    - [Step 2: Leak the Canary](#step-2-leak-the-canary)
-    - [Step 3: Locate Relevant Gadgets for ROP](#step-3-locate-relevant-gadgets-for-rop)
-    - [Step 4: Craft the Exploit](#step-4-craft-the-exploit)
-    - [Step 5: Execute the Exploit](#step-5-execute-the-exploit)
+    - [Steps:](#steps-3)
   - [Defenses Against Buffer Overflows](#defenses-against-buffer-overflows)
     - [Stack Canaries (Stack Guard)](#stack-canaries-stack-guard)
     - [Address Space Layout Randomization (ASLR)](#address-space-layout-randomization-aslr)
@@ -21,6 +23,17 @@
     - [Relocation Read-Only (RELRO)](#relocation-read-only-relro)
   - [Further Reading](#further-reading)
 
+## Exploring Buffer Overflows with phase0.c
+**Objective**: In this phase, you will exploit a buffer overflow vulnerability to print a message inside of an if statement that's not meant to be accessed.
+### Steps:
+
+1. Read the code! Do you see anything exploitable (Any scanfs or strcpy?)
+2. **Compile the Vulnerable Program**:
+   To fully observe the buffer overflow without any protection mechanisms, compile `phase1.c` using the following command:
+
+   `gcc -fno-stack-protector -z execstack -o phase0 phase0.c`
+3. Run the program and provided some input 
+   ```./phase0```
 ## Exploring Buffer Overflows with phase1.c
 
 **Objective**: In this phase, you will exploit a buffer overflow vulnerability to run a `secret_function` that's not meant to be accessed.
